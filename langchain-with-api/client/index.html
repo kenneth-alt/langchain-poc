@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js" integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>Meteo ChatBot</title>
+</head>
+<body class="bg-green-100">
+    <main class="container mx-auto flex flex-col rounded-md bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 min-h-screen">
+        <section class="flex justify-center items-center flex-col mt-10">
+            <div class="space-y-2 w-50 flex justify-center items-center flex-col">
+                <h1 class="text-3xl text-center font-bold text-green-300">Hi I'm Meteo, ask me about the weather...</h1>
+                <form class="flex flex-col w-90 md:w-80 space-y-2" id="ask">
+                    <input id="input" type="text" class="bg-gray-200 p-2 rounded" placeholder="Ask Meteo..." />
+                    <button class="bg-orange-500 w-1/4 md:w-1/3 p-1 text-sm rounded-md md:font-bold">Submit</button>
+                </form>
+            </div>
+        </section>
+        <div class="bg-gray-300 text-center text-x1 font-semibold mt-10 flex-1">
+            <h3 id="showme" class="mt-10 text-blue-500"></h3>
+        </div>
+    </main>
+    <script>
+        let ask = document.getElementById('ask')
+        let input = document.getElementById('input')
+        let showme = document.getElementById('showme')
+        ask.addEventListener("submit", async(e)=>{
+            e.preventDefault()
+            let query = {query:input.value}
+            try {
+                const { data } = await axios.post("http://127.0.0.1:8000", query)
+                showme.innerHTML = data
+            } catch (error) {
+                console.log(error);
+            }
+        })
+    </script>
+</body>
+</html>
