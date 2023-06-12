@@ -1,0 +1,7 @@
+myenv
+__pycache__
+apikey.py
+Include
+Lib
+Scripts
+pyvenv.cfg

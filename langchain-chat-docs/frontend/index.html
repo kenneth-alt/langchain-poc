@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="./favicon.ico" />
+
+    <link
+      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>Chat with my Docs</title>
+  </head>
+  <body class="bg-gray-400">
+    <main class="w-full h-full flex justify-center px-24 flex-col">
+      <header class="w-full flex justify-center items-center flex-col">
+        <nav class="flex justify-between items-center w-full mb-10 pt-3">
+          <img
+            src="./robot.png"
+            alt="Doc_Chat_Bot"
+            class="w-12 object-contain"
+          />
+          <button
+            type="button"
+            class="bg-black font-semibold rounded-full text-white p-1"
+          >
+            Github
+          </button>
+        </nav>
+        <img src="./robot.png" class="w-12 object-contain rounded-full" />
+        <h1
+          class="text-black text-center font-extrabold bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text text-transparent"
+        >
+          Ask me about your DOCUMENTS <br />
+          <span class="text-orange-500">OpenAI-langChain</span>
+        </h1>
+      </header>
+      <section class="mt-16 w-full flex justify-center">
+        <div class="flex justify-center w-full max-w-xl">
+          <form class="w-full flex justify-center flex-col space-y-4" id="ask">
+            <input
+              type="text"
+              class="w-full h-10 rounded-md p-2"
+              placeholder="Ask here..."
+              id="input"
+              required
+            />
+            <button class="bg-orange-500 w-24 h-8 rounded-md" type="submit">
+              Sumbit
+            </button>
+          </form>
+        </div>
+      </section>
+      <div id="display" class="w-full text-center mt-10 font-bold"></div>
+    </main>
+    <script>
+      let ask = document.getElementById("ask")
+      let display = document.getElementById("display")
+      let input = document.getElementById("input")
+      input.addEventListener("change", e => {
+        display.innerHTML = ""
+      })
+      ask.addEventListener("submit", async e => {
+        e.preventDefault()
+
+        let request = { query: input.value }
+        try {
+          console.log(request)
+          const response = await axios.post("http://127.0.0.1:8000/", request)
+          const data = response.data
+          display.innerHTML = `<p>${data}</p>`
+          if (data) {
+            input.value = ""
+          }
+        } catch (err) {
+          console.log(err)
+        }
+      })
+    </script>
+  </body>
+</html>

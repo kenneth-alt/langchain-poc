@@ -12,7 +12,7 @@ from langchain.llms import OpenAI
 
 os.environ['OPENAI_API_KEY']=apikey
 
-llm = OpenAI(temperature=0)
+llm = OpenAI(temperature=0, verbose=True)
 
 chain_new=APIChain.from_llm_and_api_docs(llm, open_meteo_docs.OPEN_METEO_DOCS, verbose=True)
 
