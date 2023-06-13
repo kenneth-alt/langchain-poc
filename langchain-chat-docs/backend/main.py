@@ -8,8 +8,9 @@ from langchain.indexes import VectorstoreIndexCreator
 from pydantic import BaseModel
 from apikey import OPENAI_API_KEY
 import os
+
 os.environ["OPENAI_API_KEY"]=OPENAI_API_KEY
-loader=PyPDFLoader('./Docs/ChatGPT_wikipedia.pdf')
+loader=PyPDFLoader('./Docs/Alberta_drivers_handbook.pdf')
 index=VectorstoreIndexCreator().from_loaders([loader])
 
 app=FastAPI()
@@ -27,6 +28,7 @@ class Item(BaseModel):
 @app.get('/')
 def read_root():
     return {"Hello": "world"}
+
 @app.post('/')
 def answer_query(item:Item):
     try:
