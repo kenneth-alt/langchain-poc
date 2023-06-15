@@ -1,4 +1,6 @@
 myenv
+Docs
+.chroma
 __pycache__
 apikey.py
 Include
